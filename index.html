@@ -31,7 +31,7 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h2>VideoFrame - HTML5 Video frame rate precision capturing - Version: 0.0.3</h2>
+        <h2>VideoFrame - HTML5 Video frame rate precision capturing - Version: 0.0.6</h2>
 
 <h3>(c) 2012 Allen Sarkisyan - Released under the Open Source MIT License</h3>
 
@@ -54,7 +54,7 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 <p>the FrameRates object - the industry standard video frame rates are defined here, these properties are also available with the fps object after the video has been defined.</p>
 
 <div class="highlight"><pre><span class="kd">var</span> <span class="nx">FrameRates</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">film</span><span class="o">:</span> <span class="mi">24</span><span class="p">,</span>
+    <span class="nx">film</span><span class="o">:</span> <span class="mi">24</span><span class="p">,</span>
     <span class="nx">NTSC</span> <span class="o">:</span> <span class="mf">29.97</span><span class="p">,</span>
     <span class="nx">NTSC_Film</span><span class="o">:</span> <span class="mf">23.98</span><span class="p">,</span>
     <span class="nx">NTSC_HD</span> <span class="o">:</span> <span class="mf">59.94</span><span class="p">,</span>
@@ -65,7 +65,10 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 <span class="p">};</span>
 </pre></div>
 
-<h1>Methods</h1>
+<ul>
+<li>frameRate - Returns the assigned frameRate</li>
+<li>video - Returns the HTMLVideoElement.</li>
+</ul><h1>Methods</h1>
 
 <p>The methods available are get, listen, and stopListen.</p>
 
@@ -73,6 +76,7 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 <li>get() - Retrieves the current frame of the playing source.</li>
 <li>listen(tick) - The listen method gets the video frame every 1000 milliseconds, the tick argument over rides the default interval.</li>
 <li>stopListen() - Clears the interval.</li>
+<li>toTime() - Returns the current time value in hh:mm:ss format.</li>
 </ul><h1>Usage</h1>
 
 <p>Step 1) Declaration - Initial declaration is done with a configuration object.</p>
@@ -104,7 +108,8 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 <p>Step 2) Usage - Retrieval of the current frame is done by calling the get method</p>
 
 <ul>
-<li>To receive the current frame, make a call to the video.get(); method, can't be simpler.</li>
+<li>To receive the current frame number, make a call to the video.get(); method, can't be simpler. - you may use your judgment when rounding the floating point remainder.</li>
+<li>video.toTime() - Retrieves the current time in hh:mm:ss format;</li>
 </ul>
       </section>
     </div>
