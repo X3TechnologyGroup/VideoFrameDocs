@@ -154,8 +154,14 @@ var videoFrame = {
 			return false;
 		});
 
-		// Documentation scrolling side navigation
+		// BEGIN Documentation scrolling side navigation
+		var timeOut;
 		$(window).bind('scroll', function(evt) {
+			clearTimeout(timeOut);
+			timeOut = setTimeout(handleScroll, 15);
+		});
+
+		function handleScroll() {
 			if (!/documentation/.test(location.hash)) {
 				$('#documentation ul.nav').css({ 'position' : 'static' });
 				return;
@@ -176,7 +182,8 @@ var videoFrame = {
 			} else {
 				$('#documentation ul.nav').css({ 'position' : 'static' });
 			}
-		});
+		}
+		// END Documentation scrolling side navigation
 
 		$('#videoControls').bind('hover', function() {
 			if (!$('#seekForwardOver').is(':visible')) {
