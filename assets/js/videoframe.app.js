@@ -5,11 +5,11 @@ var videoFrame = {
 	init: function() {
 		if (this.isWebKit) {
 			$('html').removeClass('not-webkit');
-			_gaq.push(['_trackEvent', 'AppStart', 'Success', 'WebKit']);
+			_gaq.push(['_trackEvent', 'AppStart', 'isWebKit']);
 		} else {
 			$('#browser-not-supported').modal();
 			$('a[href="#documentation"]').tab('show');
-			_gaq.push(['_trackEvent', 'AppStart', 'Failed', 'NotWebKit']);
+			_gaq.push(['_trackEvent', 'AppStart', 'isNotWebKit']);
 			// $('#mainWrapper .well').eq(0).hide().prev().hide();
 		}
 
