@@ -1,138 +1,586 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js not-webkit">
+<head>
+<title>VideoFrame: HTML5 Video SMTPE Time Code capturing and Frame Seeking API</title>
+<link rel="stylesheet" type="text/css" href="assets/css/video-js.min.css">
+<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+<link rel="stylesheet" type="text/css" href="assets/css/prettify.css">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Maven+Pro:400,500,700">
+<link rel="stylesheet" type="text/css" href="assets/css/videoFrame.css" />
+</head>
+<body>
+<div id="videoFrameCarousel" class="carousel slide">
+	<div class="carousel-inner">
+		<div class="active item">
+			<div class="slideItem">
+				<div class="hero-unit">
+					<div class="pull-left videoFrameIcon">
+						<div class="lead">VideoFrame</div>
+						<i class="icon-film"></i>
+					</div>
+					<ul class="unstyled pull-left useCases">
+						<li>Use it in your projects for:</li>
+						<li><i class="icon-eye-open"></i> SMPTE Time Code Capturing</li>
+						<li><i class="icon-step-forward"></i> Frame Seeking</li>
+						<li><i class="icon-camera"></i> Frame and Time Code Capturing</li>
+						<li><i class="icon-film"></i> Video Chaptering (Ad Breaks / Scene Changes / Audience Tracking)</li>
+						<li><i class="icon-picture"></i> Thumbnail Generation (HTML5 Canvas)</li>
+						<li><i class="icon-screenshot"></i> Metadata Synchronization (Second Screen / Product Placements)</li>
+						<li><i class="icon-sitemap"></i> SMPTE time code to frame, seconds, and milliseconds conversion</li>
+						<li>
+							<div style="display:inline-block;width:140px;"><i class="icon-github-sign"></i> Clone in git.</div>
+							<pre class="prettyprint linenums lang-sh" style="display:inline-block;width:440px;">git clone git://github.com/allensarkisyan/VideoFrame.git</pre>
+						</li>
+					</ul>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+		<div class="item">
+			<div class="slideItem">
+				<div class="hero-unit">
+					<div class="pull-left videoFrameIcon">
+						<div class="lead">VideoFrame</div>
+						<i class="icon-facetime-video"></i>
+					</div>
+					<ul class="unstyled pull-left useCases" style="font-size:18px;">
+						<li>
+							<i class="icon-eye-open"></i> SMPTE Time Codes
+							<div>An easy API for working with HTML5 video and SMPTE time codes.</div>
+						</li>
+						<li>
+							<i class="icon-screenshot"></i> Frame Level Accuracy for Metadata synchronization
+							<div>It's easy to sync your video metadata with time codes.</div>
+<!-- Need to keep this as close to the line beginning as possible -->
+<pre class="prettyprint linenums lang-js">
+var video = new VideoFrame({ 
+	callback: function(response, format) {
+		switch (response) {
+			case "01:12:30:11": // Do something amazing.
+				break;
+		}
+	}
+});
+</pre>
+						</li>
+					</ul>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<a class="carousel-control left" href="#videoFrameCarousel" data-slide="prev"><i class="icon-chevron-left"></i></a>
+	<a class="carousel-control right" href="#videoFrameCarousel" data-slide="next"><i class="icon-chevron-right"></i></a>
+</div>
+<div id="download-buttons">
+	<a class="btn btn-large" href="https://raw.github.com/allensarkisyan/VideoFrame/master/VideoFrame.js" target="_blank"><i class="icon-download"></i> Download Development <sup>4.8kb</sup></a>
+	<a class="btn btn-large btn-primary" href="https://raw.github.com/allensarkisyan/VideoFrame/master/VideoFrame.min.js" target="_blank"><i class="icon-download"></i> Download Minified <sup>3.5kb</sup></a>
+</div>
+<a href="https://github.com/allensarkisyan/VideoFrame" target="_blank"><img style="position: absolute; top: 0; left: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png" alt="Fork VideoFrame on GitHub"></a>
+<div id="mainWrapper">
+	<div class="container" style="margin-top: 30px;">
+		<div class="row">
+			<div class="span12">
+				<div class="tabbable">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#about" data-toggle="tab">About VideoFrame</a></li>
+						<li><a href="#documentation" data-toggle="tab">Documentation</a></li>
+					</ul>
+					<div class="tab-content">
+						<div id="about" class="tab-pane active">
+							<div>
+								<h4>VideoFrame: HTML5 Video SMTPE Time Code capturing and Frame Seeking API</h4>
+							</div>
+							<div class="well">
+								<section id="container" class="clearfix">
+									<section id="frameRates">
+										<div class="btn-group" data-toggle="buttons-radio">
+											<button class="btn disabled">Format:</button>
+											<button class="btn active">MP4</button>
+											<button class="btn btn-danger disabled">OGG</button>
+											<button class="btn btn-danger disabled">WEBM</button>
+										</div>
+										<div class="btn-group">
+											<button class="btn disabled">Frame Rate:</button>
+											<button id="frameRate" class="btn dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+												<span id="currentFrameRate">24 FPS</span>
+												<span class="caret"></span>
+											</button>
+											<ul id="frameRateMenu" class="dropdown-menu" role="menu" aria-labelledby="frameRate">
+												<li><a class="frameRate" tabindex="-1" href="#" data-frame-rate="24 FPS">24</a></li>
+												<li><a class="frameRate" tabindex="-1" href="#" data-frame-rate="29.97 FPS">29.97</a></li>
+												<li><a class="frameRate" tabindex="-1" href="#" data-frame-rate="25 FPS">25</a></li>
+												<li><a class="frameRate" tabindex="-1" href="#" data-frame-rate="30 FPS">30</a></li>
+												<li><a class="frameRate" tabindex="-1" href="#" data-frame-rate="23.98 FPS">23.98</a></li>
+												<li><a class="frameRate" tabindex="-1" href="#" data-frame-rate="50 FPS">50</a></li>
+												<li><a class="frameRate" tabindex="-1" href="#" data-frame-rate="59.94 FPS">59.94</a></li>
+												<li><a class="frameRate" tabindex="-1" href="#" data-frame-rate="60 FPS">60</a></li>
+											</ul>
+										</div>
+										<div class="btn-group">
+											<button class="btn disabled">Method:</button>
+											<button id="videoFrameMethod" class="btn dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+												<span id="currentMethod" data-video-frame-method="SMPTE">SMPTE</span>
+												<span class="caret"></span>
+											</button>
+											<ul id="videoFrameMethods" class="dropdown-menu" role="menu" aria-labelledby="videoFrameMethod">
+												<li><a class="frameRate" tabindex="-1" href="#" data-video-frame-method="SMPTE">SMPTE</a></li>
+												<li><a class="frameRate" tabindex="-1" href="#" data-video-frame-method="time">Time</a></li>
+												<li><a class="frameRate" tabindex="-1" href="#" data-video-frame-method="frame">Frames</a></li>
+											</ul>
+										</div>
+										<div id="shortcuts" class="pull-right btn btn-inverse" data-toggle="modal" href="#keyboard-shortcuts">
+											<i class="icon-cogs"></i> Shortcuts
+										</div>
+									</section>
+									<section id="videoContainer">
+										<div id="frameTracking">
+											<div class="btn-group">
+												<button class="btn disabled triggerTooltip" rel="tooltip" data-placement="top" data-original-title="Current frame rate.">FPS:</button>
+												<button id="trackFrameRate" class="btn disabled trackFrames btn-success triggerTooltip" rel="tooltip" data-placement="top" data-original-title="Current frame rate.">24</button>
+											</div>
+											<div class="btn-group">
+												<button class="btn disabled">SMPTE:</button>
+												<button id="trackSMPTE" class="btn disabled trackFrames btn-danger triggerTooltip" rel="tooltip" data-placement="top" data-original-title="Current SMPTE time code.">00:00:00:00</button>
+											</div>
+											<div class="btn-group">
+												<button class="btn disabled">Time Code:</button>
+												<button id="trackTime" class="btn disabled trackFrames btn-danger triggerTooltip" rel="tooltip" data-placement="top" data-original-title="Current time in video.">00:00:00</button>
+											</div>
+											<div class="btn-group">
+												<button class="btn disabled">Frame Number:</button>
+												<button id="trackFrames" class="btn disabled trackFrames btn-danger triggerTooltip" rel="tooltip" data-placement="top" data-original-title="Current frame in video.">0</button>
+											</div>
+										</div>
+										<video id="videoPlayer" class="video-js vjs-default-skin" width="880" height="495" controls></video>
+									</section>
+									<section id="videoControls">
+										<button id="playButton" class="btn btn-large pull-left"><i class="icon-play"></i></button>
+										
+										<button id="seekBackward" class="btn btn-large pull-left triggerPopover" rel="popover" data-placement="right" data-original-title="Frame seeking backward" data-content="Seeks backward frames in the video."><i class="icon-step-backward"></i></button>
+										
+										<button id="seekForward" class="btn btn-large pull-left triggerPopover" rel="popover" data-placement="left" data-original-title="Frame seeking forward." data-content="Seeks forward frames in the video."><i class="icon-step-forward"></i></button>
+										
+										<button id="captureFrame" class="btn btn-large pull-left triggerPopover" rel="popover" data-placement="left" data-original-title="SMPTE time code capturing" data-content="Log the SMPTE time code of the current frame."><i class="icon-eye-open"></i></button>
+										
+										<button id="captureScreenShot" class="btn btn-large pull-left triggerPopover" rel="popover" data-placement="left" data-original-title="Generate a thumbnail." data-content="Generate a JPEG image from the current frame."><i class="icon-picture"></i></button>
+									</section>
+									<section id="frameSeeking">
+										<div id="seekBackwardOver" style="display: none; position: absolute; left: 180px; top: 635px;">
+											<div class="btn-group" data-toggle="buttons-radio">
+												<button class="btn btn-small active">1</button>
+												<button class="btn btn-small">5</button>
+												<button class="btn btn-small">10</button>
+												<button class="btn btn-small">25</button>
+												<button class="btn btn-small">50</button>
+											</div>
+										</div>
+										<div id="seekForwardOver" style="display: none; position: absolute; left: 360px; top: 635px;">
+											<div class="btn-group" data-toggle="buttons-radio">
+												<button class="btn btn-small active">1</button>
+												<button class="btn btn-small">5</button>
+												<button class="btn btn-small">10</button>
+												<button class="btn btn-small">25</button>
+												<button class="btn btn-small">50</button>
+											</div>
+										</div>
+									</section>
+								</section>
+							</div>
+							<h4 class="lead">SMPTE Time Code Conversion Methods</h4>
+							<div class="well">
+								<section id="conversionMethods">
+									<h5>SMPTE Time code to Milliseconds, Seconds, and Frames conversion.</h5>
+									<div class="input-prepend input-append">
+										<button class="btn disabled">SMPTE:</button>
+										<input id="SMPTE-timeCode" type="text" placeholder="00:00:00:00" rel="tooltip" data-placement="top" data-original-title="Input: SMPTE time code for conversion." class="triggerTooltip">
+										<!-- <div class="btn-group">
+											<button class="btn disabled">FPS:</button>
+											<span class="dropup">
+												<button id="conversionFrameRate" class="btn dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+													<span id="currentConversionFrameRate" data-conversion-frame-rate="24">24</span>
+													<span class="caret"></span>
+												</button>
+												<ul id="conversionFrameRates" class="dropdown-menu" role="menu" aria-labelledby="conversionFrameRate">
+													<li><a class="updateConversionFrameRate" tabindex="-1" href="#" data-conversion-frame-rate="24 FPS">24</a></li>
+													<li><a class="updateConversionFrameRate" tabindex="-1" href="#" data-conversion-frame-rate="29.97 FPS">29.97</a></li>
+													<li><a class="updateConversionFrameRate" tabindex="-1" href="#" data-conversion-frame-rate="25 FPS">25</a></li>
+													<li><a class="updateConversionFrameRate" tabindex="-1" href="#" data-conversion-frame-rate="30 FPS">30</a></li>
+													<li><a class="updateConversionFrameRate" tabindex="-1" href="#" data-conversion-frame-rate="23.98 FPS">23.98</a></li>
+													<li><a class="updateConversionFrameRate" tabindex="-1" href="#" data-conversion-frame-rate="50 FPS">50</a></li>
+													<li><a class="updateConversionFrameRate" tabindex="-1" href="#" data-conversion-frame-rate="59.94 FPS">59.94</a></li>
+													<li><a class="updateConversionFrameRate" tabindex="-1" href="#" data-conversion-frame-rate="60 FPS">60</a></li>
+												</ul>
+											</span>
+										</div> -->
+										<div id="SMPTE-conversion" class="btn-group">
+											<button class="btn disabled">Convert to:</button>
+											<span class="dropup">
+												<button id="conversionMethod" class="btn dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+													<span id="currentConversionMethod" data-conversion-method="milliseconds">Milliseconds</span>
+													<span class="caret"></span>
+												</button>
+												<ul id="conversionMethods" class="dropdown-menu" role="menu" aria-labelledby="conversionMethod">
+													<li><a class="updateConversionMethod" tabindex="-1" href="#" data-conversion-method="milliseconds">Milliseconds</a></li>
+													<li><a class="updateConversionMethod" tabindex="-1" href="#" data-conversion-method="seconds">Seconds</a></li>
+													<li><a class="updateConversionMethod" tabindex="-1" href="#" data-conversion-method="frames">Frames</a></li>
+												</ul>
+											</span>
+										</div>
+										<button id="convertSMPTEValue" type="button" class="btn btn-primary">Convert</button>
+										<button id="convertedValue" class="btn btn-inverse">0</button>
+									</div>
+									<!-- Frame to SMPTE -->
+									<h5 style="margin-top: 40px;">Frame number to SMPTE Time code conversion.</h5>
+									<div class="input-prepend input-append">
+										<button class="btn disabled">Frame Number:</button>
+										<input id="frame-number" type="number" class="input-small" placeholder="0" rel="tooltip" data-placement="top" data-original-title="Input: Frame to time code conversion." class="triggerTooltip">
+										<button id="convertFrameValue" type="button" class="btn btn-primary">Convert to SMPTE:</button>
+										<button id="convertedFrameValue" class="btn btn-inverse">0</button>
+									</div>
+								</section>
+							</div>
+							<!-- Captured Video Frames -->
+							<div id="videoFrameResults" style="display:none;">
+								<table id="videoFrameTable" class="table table-striped table-bordered">
+									<caption class="lead">Captured Time Codes</caption>
+									<thead>
+										<th>ID</th>
+										<th>SMPTE Time Code</th>
+									</thead>
+									<tbody>
+										<tr style="display:none;">
+											<td class="frameID">0</td>
+											<td class="frameSMPTE">00:00:00:00</td>
+										</tr>
+									</tbody>
+									<tfoot></tfoot>
+								</table>
+							</div>
+							<div id="videoFrameScreenshots" style="display:none;">
+								<div class="lead" style="text-align:center;">Generated Thumbnails</div>
+								<ul class="thumbnails"></ul>
+							</div>
+						</div>
+<!-- BEGIN Documentation Tab -->
+<div id="documentation" class="tab-pane">
+<div id="license-notice" class="well">
+	<h4>&copy; 2013 Allen Sarkisyan - Released under the Open Source MIT License</h4>
+	<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, and/or distribute copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Videoframe : Video Frame - HTML5 Video Frame Capturing" />
+	<ul class="unstyled">
+		<li><i class="icon-caret-right"></i> The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</li>
+		<li><i class="icon-caret-right"></i> Attribution must be credited to the original authors in derivative works.</li>
+	</ul>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+	<ul class="unstyled">
+		<li><b>Authors / Contributors:</b></li>
+		<li><i class="icon-caret-right"></i> <a href="http://www.linkedin.com/in/allensarkisyan" target="_blank">Allen Sarkisyan</a> - Lead Engineer / Primary Inventor</li>
+		<li><i class="icon-caret-right"></i> <a href="http://www.linkedin.com/in/paigeraynes" target="_blank">Paige Raynes</a> - Product Development</li>
+		<li><i class="icon-caret-right"></i> <a href="http://www.linkedin.com/in/allensarkisyan" target="_blank">Dan Jacinto</a> - Video Asset Quality Analyst</li>
+	</ul>
 
-    <title>Videoframe</title>
-  </head>
-
-  <body>
-
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/allensarkisyan/VideoFrame">View on GitHub</a>
-
-          <h1 id="project_title">Videoframe</h1>
-          <h2 id="project_tagline">Video Frame - HTML5 Video Frame Capturing</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/allensarkisyan/VideoFrame/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/allensarkisyan/VideoFrame/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h2>VideoFrame - HTML5 Video frame rate precision capturing - Version: 0.0.6</h2>
-
-<h3>(c) 2012 Allen Sarkisyan - Released under the Open Source MIT License</h3>
-
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished
-to do so, subject to the following conditions:</p>
-
-<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
-
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
-
-<h1>Properties</h1>
-
-<p>the FrameRates object - the industry standard video frame rates are defined here, these properties are also available with the fps object after the video has been defined.</p>
-
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">FrameRates</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">film</span><span class="o">:</span> <span class="mi">24</span><span class="p">,</span>
-    <span class="nx">NTSC</span> <span class="o">:</span> <span class="mf">29.97</span><span class="p">,</span>
-    <span class="nx">NTSC_Film</span><span class="o">:</span> <span class="mf">23.98</span><span class="p">,</span>
-    <span class="nx">NTSC_HD</span> <span class="o">:</span> <span class="mf">59.94</span><span class="p">,</span>
-    <span class="nx">PAL</span><span class="o">:</span> <span class="mi">25</span><span class="p">,</span>
-    <span class="nx">PAL_HD</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
-    <span class="nx">web</span><span class="o">:</span> <span class="mi">30</span><span class="p">,</span>
-    <span class="nx">high</span><span class="o">:</span> <span class="mi">60</span>
-<span class="p">};</span>
-</pre></div>
-
-<ul>
-<li>frameRate - Returns the assigned frameRate</li>
-<li>video - Returns the HTMLVideoElement.</li>
-</ul><h1>Methods</h1>
-
-<p>The methods available are get, listen, and stopListen.</p>
-
-<ul>
-<li>get() - Retrieves the current frame of the playing source.</li>
-<li>listen(tick) - The listen method gets the video frame every 1000 milliseconds, the tick argument over rides the default interval.</li>
-<li>stopListen() - Clears the interval.</li>
-<li>toTime() - Returns the current time value in hh:mm:ss format.</li>
-</ul><h1>Usage</h1>
-
-<p>Step 1) Declaration - Initial declaration is done with a configuration object.</p>
-
+	<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+</div>
+<div class="pull-left">
+	<ul class="nav nav-list" style="width: 230px;">
+		<li class="active"><a href="#configuration" data-hash="/documentation/configuration">VideoFrame Configuration</a></li>
+		<li class="nav-header">Properties</li>
+		<li><a href="#propertyFrameRates" data-hash="/documentation/FrameRates">FrameRates Object</a></li>
+		<li class="nav-header">Methods</li>
+		<li><a href="#methodGet" data-hash="/documentation/get">get</a></li>
+		<li><a href="#methodToSMPTE" data-hash="/documentation/toSMPTE">toSMPTE</a></li>
+		<li><a href="#methodSeekForward" data-hash="/documentation/seekForward">seekForward</a></li>
+		<li><a href="#methodSeekBackward" data-hash="/documentation/seekBackward">seekBackward</a></li>
+		<li><a href="#methodToTime" data-hash="/documentation/toTime">toTime</a></li>
+		<li><a href="#methodToSeconds" data-hash="/documentation/toSeconds">toSeconds</a></li>
+		<li><a href="#methodToMilliseconds" data-hash="/documentation/toMilliseconds">toMilliseconds</a></li>
+		<li><a href="#methodToFrames" data-hash="/documentation/toFrames">toFrames</a></li>
+		<li><a href="#methodListen" data-hash="/documentation/listen">listen</a></li>
+		<li><a href="#methodStopListen" data-hash="/documentation/stopListen">stopListen</a></li>
+		<!-- <li class="divider"></li>
+		<li><a href="#"><i class="icon-coffee"></i> Buy me a cup of Coffee.</a></li> -->
+	</ul>
+</div>
+<div class="pull-right" style="width: 680px;">
 <blockquote>
-<p>The configuration object takes these properties: id, and frameRate. it also provides a callback method.</p>
-
-<ul>
-<li>id defines the video element;</li>
-<li>frameRate defines the frame rate of the video source being played.</li>
-<li>callback defines a callback function that is called when a frame is captured.</li>
-</ul>
+<div id="configuration" class="well">
+	<h2 class="lead">
+		VideoFrame Configuration: <span class="muted">One step, and your rolling.</span><br />
+	</h2>
+	<div>The configuration object accepts two properties and a callback function.</div>
+	<p class="muted">
+		<i class="icon-caret-right"></i><span> id defines the video element;</span><br />
+		<i class="icon-caret-right"></i><span> frameRate defines the frame rate of the video source being played.</span><br />
+		<i class="icon-caret-right"></i><span> callback defines a callback function that is called when a frame is captured.</span>
+	</p>
+</div>
+<pre class="prettyprint linenums lang-js">
+var video = VideoFrame({
+    id: 'videoPlayer',
+    frameRate: FrameRates.film,
+    callback: function(response) {
+        console.log(response);
+    }
+});
+</pre>
+<p><i class="icon-info-sign"></i> You may also initiate VideoFrame without a configuration object if you are certain you have a HTML5 video element on the page, and the video source frame rate is 24fps.</p>
+<pre class="prettyprint linenums lang-js">
+var video = VideoFrame();
+</pre>
 </blockquote>
+<!-- Properties -->
+<h2 id="propertyFrameRates" class="lead" style="font-size:48px;">Properties</h2>
+<blockquote>
+<h2 class="lead">
+	<span>The FrameRates Object</span>
+	<p class="muted"><i class="icon-caret-right"></i> The industry standard video frame rates are defined here, these properties are also available with the fps object after the video has been defined.</p>
+</h2>
+<pre class="prettyprint linenums lang-js">
+var FrameRates = {
+    film: 24,
+    NTSC : 29.97,
+    NTSC_Film: 23.98,
+    NTSC_HD : 59.94,
+    PAL: 25,
+    PAL_HD: 50,
+    web: 30,
+    high: 60
+};
+</pre>
+</blockquote>
+<!-- Methods -->
+<h2 class="lead" style="font-size:48px;">Methods</h2>
+<blockquote>
+<h2 id="methodGet" class="lead">
+	<span>get</span>
+	<p class="muted"><i class="icon-caret-right"></i> Retrieves the current frame number of the playing source.</p>
+</h2>
+<pre class="prettyprint linenums lang-js">
+var frame = video.get();
+</pre>
 
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">video</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoFrame</span><span class="p">({</span>
-  <span class="nx">id</span> <span class="o">:</span> <span class="s1">'videoPlayer'</span><span class="p">,</span>
-    <span class="nx">frameRate</span><span class="o">:</span> <span class="nx">FrameRates</span><span class="p">.</span><span class="nx">NTSC</span><span class="p">,</span>
-    <span class="nx">callback</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'callback response: '</span> <span class="o">+</span> <span class="nx">response</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">});</span>
-</pre></div>
+<h2 id="methodToSMPTE" class="lead">
+	<span>toSMPTE</span>
+	<p class="muted"><i class="icon-caret-right"></i> Returns the current time with frame count in the SMPTE time code format hh:mm:ss:ff <br /> <i class="icon-info-sign"></i> Optional: Accepts a frame number for conversion to it's equivalent SMPTE time code.</p>
+</h2>
+<pre class="prettyprint linenums lang-js">
+var SMPTE = video.toSMPTE();
 
-<p>You may also initiate VideoFrame without a configuration object if you are certain you have a HTML5 video element on the page, and the video source frame rate is 24fps.</p>
+// @param frame Number - Optional: Frame number to convert to equivalent SMPTE time code.
+var SMPTE = video.toSMPTE(108); // Returns 00:00:04:12
+</pre>
 
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">video</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VideoFrame</span><span class="p">();</span>
-</pre></div>
+<h2 id="methodSeekForward" class="lead">
+	<span>seekForward</span>
+	<p class="muted"><i class="icon-caret-right"></i> Seeks forward the amount of frames declared by the frames parameter. <br /> <i class="icon-info-sign"></i> Defaults to 1 frame.</p>
+</h2>
+<pre class="prettyprint linenums lang-js">
+// @param frames Number - Optional: Number of frames to seek forward.
+// @param callback Function - Optional: a callback function to invoke.
 
-<p>Step 2) Usage - Retrieval of the current frame is done by calling the get method</p>
+video.seekForward(frames, callback);
+</pre>
 
-<ul>
-<li>To receive the current frame number, make a call to the video.get(); method, can't be simpler. - you may use your judgment when rounding the floating point remainder.</li>
-<li>video.toTime() - Retrieves the current time in hh:mm:ss format;</li>
-</ul>
-      </section>
-    </div>
+<h2 id="methodSeekBackward" class="lead">
+	<span>seekBackward</span>
+	<p class="muted"><i class="icon-caret-right"></i> Seeks backward the amount of frames declared by the frames parameter. <br /> <i class="icon-info-sign"></i> Defaults to 1 frame.</p>
+</h2>
+<pre class="prettyprint linenums lang-js">
+// @param frames Number - Optional: Number of frames to seek backward.
+// @param callback Function - Optional: a callback function to invoke.
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Videoframe maintained by <a href="https://github.com/allensarkisyan">allensarkisyan</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
+video.seekBackward(frames, callback);
+</pre>
 
-              <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-36991821-1");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
+<h2 id="methodToTime" class="lead">
+	<span>toTime</span>
+	<p class="muted"><i class="icon-caret-right"></i> Returns the current time value in hh:mm:ss format.</p>
+</h2>
+<pre class="prettyprint linenums lang-js">
+var time = video.toTime();
+</pre>
 
+<h2 id="methodToSeconds" class="lead">
+	<span>toSeconds</span>
+	<p class="muted"><i class="icon-caret-right"></i> Returns the current time value in seconds <br /> <i class="icon-info-sign"></i> Optional: Accepts a SMPTE time code for conversion to seconds.</p>
+</h2>
+<pre class="prettyprint linenums lang-js">
+var seconds = video.toSeconds();
 
-  </body>
+// Convert a SMPTE time code to seconds
+// @param SMPTE String - Accepted: a SMPTE Time Code E.G. (01:12:33:11)
+var SMPTE = '01:12:33:11'; // SMPTE Time Code at 24fps
+var seconds = video.toSeconds(SMPTE); // 4353
+</pre>
+
+<h2 id="methodToMilliseconds" class="lead">
+	<span>toMilliseconds</span>
+	<p class="muted"><i class="icon-caret-right"></i> Returns the current time value in milliseconds <br /> <i class="icon-info-sign"></i> Optional: Accepts a SMPTE time code for conversion to milliseconds.</p>
+</h2>
+<pre class="prettyprint linenums lang-js">
+var milliseconds = video.toMilliseconds();
+
+// Convert a SMPTE time code to milliseconds
+// @param SMPTE String - Accepted: a SMPTE Time Code E.G. (01:12:33:11)
+var SMPTE = '01:12:33:11'; // SMPTE Time Code at 24fps
+var milliseconds = video.toMilliseconds(SMPTE); // 4353458
+</pre>
+
+<h2 id="methodToFrames" class="lead">
+	<span>toFrames</span>
+	<p class="muted"><i class="icon-caret-right"></i> Returns the frame count from a SMPTE time code.</p>
+</h2>
+<pre class="prettyprint linenums lang-js">
+var frames = video.toFrames();
+
+// Convert a SMPTE time code to frames
+// @param SMPTE String - Accepted: a SMPTE Time Code E.G. (01:12:33:11)
+var SMPTE = '01:12:33:11'; // SMPTE Time Code at 24fps
+var frames = video.toFrames(SMPTE); // 104483
+</pre>
+
+<h2 id="methodListen" class="lead">
+	<span>listen</span>
+	<p class="muted"><i class="icon-caret-right"></i> The listen method requires the format parameter values include: (SMPTE, time, frame), the tick argument over rides the default interval set by the frame rate of the video.</p>
+</h2>
+<pre class="prettyprint linenums lang-js">
+// @param format String - Accepted: 'SMPTE', 'time', 'frame'
+// @param tick Number - Over rides the default interval set by the frame rate of the video.
+video.listen(format, tick);
+</pre>
+
+<h2 id="methodStopListen" class="lead">
+	<span>stopListen</span>
+	<p class="muted"><i class="icon-caret-right"></i> Clears the interval set by the listen method.</p>
+</h2>
+<pre class="prettyprint linenums lang-js">
+video.stopListen();
+</pre>
+</blockquote>
+</div>
+</div>
+<!-- END Documentation Tab -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<footer>
+			<p class="muted">&copy; 2013 - <a href="http://www.linkedin.com/in/allensarkisyan">Allen Sarkisyan </a>
+				<span class="pull-right">
+					<a class="btn" href="https://github.com/allensarkisyan/VideoFrame" target="_blank"><i class="icon-github"></i> Download on GitHub</a>
+					<span class="btn-group">
+						<a class="btn" href="https://github.com/allensarkisyan" style="font-size:18px;" target="_blank"><i class="icon-github"></i></a>
+						<a class="btn" href="http://www.linkedin.com/in/allensarkisyan" style="font-size:18px;" target="_blank"><i class="icon-linkedin-sign"></i></a>
+						<a class="btn" href="http://gplus.to/allensarkisyan" style="font-size:18px;" target="_blank"><i class="icon-google-plus-sign"></i></a>
+					</span>
+				</span>
+			</p>
+		</footer>
+	</div>
+</div>
+<!-- Modal Dialogs -->
+<div id="browser-not-supported" class="modal hide">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Yikes! What gives?</h3>
+	</div>
+	<div class="modal-body">
+		<p>VideoFrame currently works best with WebKit powered browsers like Safari, or Chrome.</p>
+		<p>The HTML5 Video API is fairly a new platform therefore browser vendors are still implementing the specification to it's entirety.</p>
+	</div>
+	<div class="modal-footer">
+		<a href="http://www.apple.com/safari" target="_blank" class="btn"><i class="icon-download"></i> Download Apple Safari</a>
+		<a href="http://www.google.com/chrome" target="_blank" class="btn"><i class="icon-download"></i> Download Google Chrome</a>
+		<a href="#" class="btn btn-inverse" data-dismiss="modal">Close</a>
+	</div>
+</div>
+<div id="keyboard-shortcuts" class="modal hide">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Keyboard Shortcuts</h3>
+	</div>
+	<div class="modal-body">
+		<table class="table table-striped table-bordered">
+			<tr>
+				<th>Command</th>
+				<th>Shortcut Key</th>
+			</tr>
+			<tr>
+				<td>Play/Pause Video</td>
+				<td><b>Spacebar</b></td>
+			</tr>
+			<tr>
+				<td>Seek Backward</td>
+				<td><b>Shift + Left Arrow</b></td>
+			</tr>
+			<tr>
+				<td>Seek Forward</td>
+				<td><b>Shift + Right Arrow</b></td>
+			</tr>
+			<tr>
+				<td>Capture SMPTE Timecode</td>
+				<td><b>Shift + F</b></td>
+			</tr>
+			<tr>
+				<td>Capture Thumbnail</td>
+				<td><b>Shift + S</b></td>
+			</tr>
+		</table>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal">OK</a>
+	</div>
+</div>
+<script type="text/javascript" src="assets/js/videoframe.app.js"></script>
+<script type="text/javascript" src="assets/js/VideoFrame.min.js"></script>
+<script type="text/javascript" src="assets/js/modernizr-2.6.2.js"></script>
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/video.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/prettify.js"></script>
+<script type="text/javascript" src="assets/js/bs.js" async></script>
+<script type="text/javascript">
+	var video = new VideoFrame({
+		id : 'videoPlayer_html5_api',
+		frameRate: FrameRates.film,
+		callback : function(response, format) {
+			switch(format) {
+				case "SMPTE":
+					document.getElementById('trackSMPTE').innerText = response;
+					$('#SMPTE-timeCode').attr('placeholder', response);
+					$('#frame-number').attr('placeholder', video.toFrames(response));
+					$('#trackSMPTE').removeClass('btn-danger disabled').addClass('btn-success');
+
+					var SMPTE = response.split(':');
+					var SMPTESeconds = Number(SMPTE[2]);
+					if (SMPTESeconds % 10 === 0 && SMPTESeconds !== 0 && Number(SMPTE[3]) === 0) {
+						// var imgData = getScreenShot('dataURI');
+						var imgData = videoFrame.getScreenShot('dataURI');
+						var jsonObj = '{ "frame": "' + response + '", "img": "' + imgData + '" }';
+						// dataScreenShots.push(jsonObj);
+						videoFrame.dataScreenShots.push(jsonObj);
+					}
+					break;
+				case "frame":
+					document.getElementById('trackFrames').innerText = Math.floor(response);
+					$('#SMPTE-timeCode').attr('placeholder', video.toSMPTE());
+					$('#trackFrames').removeClass('btn-danger disabled').addClass('btn-success');
+					break;
+				case "time":
+					document.getElementById('trackTime').innerText = response;
+					$('#SMPTE-timeCode').attr('placeholder', video.toSMPTE());
+					$('#trackTime').removeClass('btn-danger disabled').addClass('btn-success');
+					break;
+			}
+		}
+	});
+
+	$(function() {
+		return videoFrame.init();
+	});
+</script>
+</body>
 </html>
