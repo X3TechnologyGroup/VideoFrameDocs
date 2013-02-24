@@ -87,13 +87,13 @@ var videoFrame = {
 		$('#seekBackward').bind('click', function(evt) {
 			evt.preventDefault();
 			video.seekBackward($('#seekBackwardOver button.active').html(), videoFrame.triggerFrameUpdate);
-			_gaq.push(['_trackEvent', 'Seek', 'Backward']);
+			_gaq.push(['_trackEvent', 'VideoControls', 'Seek', 'Backward']);
 		});
 
 		$('#seekForward').bind('click', function(evt) {
 			evt.preventDefault();
 			video.seekForward($('#seekForwardOver button.active').html(), videoFrame.triggerFrameUpdate);
-			_gaq.push(['_trackEvent', 'Seek', 'Forward']);
+			_gaq.push(['_trackEvent', 'VideoControls', 'Seek', 'Forward']);
 		});
 
 		$('#playButton').bind('click', videoFrame.toggleVideo);
@@ -239,7 +239,7 @@ var videoFrame = {
 		} else {
 			video.pause();
 		}
-		_gaq.push(['_trackEvent', 'VideoPlayer', 'Playback', 'Player State:' + (video.paused() ? 'Paused' : 'Playing')]);
+		_gaq.push(['_trackEvent', 'VideoControls', 'Playback', 'Player State:' + (video.paused() ? 'Paused' : 'Playing')]);
 	},
 	triggerFrameUpdate : function() {
 		switch ($('#currentMethod').attr('data-video-frame-method')) {
