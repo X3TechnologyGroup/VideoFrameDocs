@@ -122,6 +122,12 @@ var videoFrame = {
 			}
 		});
 
+		$('#videoControls').bind('hover', function() {
+			if (!$('#seekForwardOver').is(':visible')) {
+				$('#seekForwardOver, #seekBackwardOver').dequeue().fadeIn('slow');
+			}
+		});
+
 		// Carousel
 		$('.carousel').carousel({
 			interval: 5000,
@@ -197,12 +203,11 @@ var videoFrame = {
 		}
 		// END Documentation scrolling side navigation
 
-		$('#videoControls').bind('hover', function() {
-			if (!$('#seekForwardOver').is(':visible')) {
-				$('#seekForwardOver, #seekBackwardOver').dequeue().fadeIn('slow');
-			}
+		$('#download-buttons .btn').bind('click', function() {
+			var min = $(this).hasClass('btn-primary');
+			_gaq.push(['_trackEvent', 'Download', (min ? 'Minified' : 'Development')]);
 		});
-
+		
 		return this.routeApp();
 	},
 	routeApp : function() {
