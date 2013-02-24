@@ -2,6 +2,7 @@ var videoFrame = {
 	isWebKit : (/AppleWebKit/gi.test(navigator.userAgent)),
 	jsonArr : [],
 	dataScreenShots : [],
+	isInitialized : false,
 	init: function() {
 		if (this.isWebKit) {
 			$('html').removeClass('not-webkit');
@@ -205,6 +206,7 @@ var videoFrame = {
 		return this.routeApp();
 	},
 	routeApp : function() {
+		if (!this.isInitialized) { return; }
 		// Check for a hash and direct to the appropriate section of the page
 		var context = location.hash;
 		if (/documentation/.test(context)) {
@@ -225,7 +227,8 @@ var videoFrame = {
 				}
 			});
 		}
-		_gaq.push(['_trackEvent', 'RouteApp', context]);
+		this.isInitialized = true;
+		_gaq.push(['_trackEvent', 'RouteApp', 'Hash', context]);
 	},
 	resetFrameCount : function() {
 		$('#trackSMPTE').html('00:00:00:00').removeClass('btn-success').addClass('btn-danger disabled');
