@@ -5,9 +5,11 @@ var videoFrame = {
 	init: function() {
 		if (this.isWebKit) {
 			$('html').removeClass('not-webkit');
+			_gaq.push(['_trackEvent', 'AppStart', 'Success', 'WebKit']);
 		} else {
 			$('#browser-not-supported').modal();
 			$('a[href="#documentation"]').tab('show');
+			_gaq.push(['_trackEvent', 'AppStart', 'Failed', 'NotWebKit']);
 			// $('#mainWrapper .well').eq(0).hide().prev().hide();
 		}
 
@@ -20,17 +22,20 @@ var videoFrame = {
 			this.addEvent('play', function(){
 				video.listen($('#currentMethod').attr('data-video-frame-method'));
 				$('#playButton').html('<i class="icon-pause"></i>');
+				_gaq.push(['_trackEvent', 'VideoPlayer', 'Start Playback']);
 			});
 
 			this.addEvent('pause', function(){
 				video.stopListen();
 				$('#playButton').html('<i class="icon-play"></i>');
+				_gaq.push(['_trackEvent', 'VideoPlayer', 'Pause Playback']);
 			});
 
 			this.addEvent('ended', function() {
 				this.cancelFullScreen();
 				video.stopListen();
 				$('#playButton').html('<i class="icon-play"></i>');
+				_gaq.push(['_trackEvent', 'VideoPlayer', 'Video Ended']);
 			});
 
 			this.addEvent('fullscreenchange', function(evt) {
@@ -38,6 +43,7 @@ var videoFrame = {
 					video.stopListen();
 				}
 			});
+			_gaq.push(['_trackEvent', 'VideoPlayer', 'init Success']);
 		});
 
 
@@ -61,39 +67,42 @@ var videoFrame = {
 				video.video.currentTime = 0;
 				$('#currentMethod').html(elem.html()).attr('data-video-frame-method', elem.attr('data-video-frame-method'));
 			}
+			_gaq.push(['_trackEvent', 'VideoPlayer', 'Source Change', elem.attr('data-video-frame-method')]);
 		});
 
 		$('.updateConversionMethod').bind('click', function(evt) {
 			evt.preventDefault();
 			var elem = $(evt.target);
 			$('#currentConversionMethod').html(elem.html()).attr('data-conversion-method', elem.attr('data-conversion-method'));
+			_gaq.push(['_trackEvent', 'Conversion', 'Conversion Method Update', elem.attr('data-conversion-method')]);
 		});
 
 		$('.updateConversionFrameRate').bind('click', function(evt) {
 			evt.preventDefault();
 			var elem = $(evt.target);
 			$('#currentConversionFrameRate').html(elem.html()).attr('data-conversion-frame-rate', elem.attr('data-conversion-frame-rate'));
+			_gaq.push(['_trackEvent', 'Conversion', 'Frame Rate Update', elem.attr('data-conversion-frame-rate')]);
 		});
 
 		$('#seekBackward').bind('click', function(evt) {
 			evt.preventDefault();
 			video.seekBackward($('#seekBackwardOver button.active').html(), videoFrame.triggerFrameUpdate);
+			_gaq.push(['_trackEvent', 'Seek', 'Backward']);
 		});
 
 		$('#seekForward').bind('click', function(evt) {
 			evt.preventDefault();
 			video.seekForward($('#seekForwardOver button.active').html(), videoFrame.triggerFrameUpdate);
+			_gaq.push(['_trackEvent', 'Seek', 'Forward']);
 		});
 
 		$('#playButton').bind('click', videoFrame.toggleVideo);
 		$('#captureScreenShot').bind('click', videoFrame.getScreenShot);
 		$('#captureFrame').bind('click', videoFrame.addFrame);
 		$('#convertSMPTEValue').bind('click', videoFrame.convertSMPTE);
-
 		$('#convertFrameValue').bind('click', videoFrame.convertFrame);
 
 		// Bind the keyboard shortcut functionality
-		// TODO: Add a modal dialog for documentation about these shortcuts
 		$(document).bind('keydown', function(evt) {
 			var code = evt.which || evt.keyCode;
 			// 37:left - 39:right - 70:F - 32:space - 83:S
@@ -136,6 +145,7 @@ var videoFrame = {
 			var id = $(this).attr('href').replace('#','');
 			// Set the location hash for routing
 			location.hash = '!/' + id;
+			_gaq.push(['_trackEvent', 'Navigation', 'Tabs', id]);
 		});
 
 		// Documentation side navigation functionality
@@ -150,6 +160,7 @@ var videoFrame = {
 				var hash = elem.data().hash;
 				location.hash = '!' + hash;
 				$('html, body').animate({ scrollTop: $(id).offset().top }, 250);
+				_gaq.push(['_trackEvent', 'Navigation', 'Documentation', id]);
 			});
 			return false;
 		});
@@ -214,6 +225,7 @@ var videoFrame = {
 				}
 			});
 		}
+		_gaq.push(['_trackEvent', 'RouteApp', context]);
 	},
 	resetFrameCount : function() {
 		$('#trackSMPTE').html('00:00:00:00').removeClass('btn-success').addClass('btn-danger disabled');
@@ -227,6 +239,7 @@ var videoFrame = {
 		} else {
 			video.pause();
 		}
+		_gaq.push(['_trackEvent', 'VideoPlayer', 'Playback', 'Player State:' + (video.paused() ? 'Paused' : 'Playing')]);
 	},
 	triggerFrameUpdate : function() {
 		switch ($('#currentMethod').attr('data-video-frame-method')) {
@@ -256,10 +269,12 @@ var videoFrame = {
 				$('#convertedValue').html('<div>' + video.toFrames(timeCode) + '</div>');
 				break;
 		}
+		_gaq.push(['_trackEvent', 'Conversion', 'SMPTE to ' + conversionMethod]);
 	},
 	convertFrame : function() {
 		var frame = $('#frame-number').val() || $('#frame-number').attr('placeholder');
 		$('#convertedFrameValue').html('<div>' + video.toSMPTE(frame) + '</div>');
+		_gaq.push(['_trackEvent', 'Conversion', 'Frame to SMPTE']);
 	},
 	// BEGIN Proprietary to Crackle Maybe??
 	addFrame : function() {
@@ -288,6 +303,7 @@ var videoFrame = {
 		$('#videoFrameTable tbody').append(clonedRow);
 		// $('#videoFrameTable').append(clonedRow);
 		$('#videoFrameResults').fadeIn('500');
+		_gaq.push(['_trackEvent', 'VideoControls', 'SMPTE Time Code Captured']);
 	},
 	buildJSON : function() {
 		var jsonStr = '[' + videoFrame.jsonArr.join(',') + ']';
@@ -307,6 +323,7 @@ var videoFrame = {
 			$('#videoFrameScreenshots li').fadeIn('500');
 		});
 		$('#videoFrameScreenshots').fadeIn('500');
+		_gaq.push(['_trackEvent', 'VideoControls', 'Thumbnail Generated']);
 	},
 	buildThumbnails : function() {
 		var screenShots = '[' + videoFrame.dataScreenShots.join(',') + ']';
