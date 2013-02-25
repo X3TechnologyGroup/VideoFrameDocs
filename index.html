@@ -2,12 +2,15 @@
 <html class="no-js not-webkit">
 <head>
 <title>VideoFrame: HTML5 Video SMTPE Time Code capturing and Frame Seeking API</title>
-<link rel="stylesheet" type="text/css" href="assets/css/video-js.min.css">
+<link rel="stylesheet" type="text/css" href="assets/css/app.depependencies.css" />
+<!-- #ifndef "RELEASE" in FEATURES -->
+<!-- <link rel="stylesheet" type="text/css" href="assets/css/video-js.min.css">
 <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
 <link rel="stylesheet" type="text/css" href="assets/css/prettify.css">
-<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Maven+Pro:400,500,700">
 <link rel="stylesheet" type="text/css" href="assets/css/videoFrame.css" />
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Maven+Pro:400,500,700"> -->
+<!-- #endif -->
 </head>
 <body>
 <div id="videoFrameCarousel" class="carousel slide">
@@ -229,6 +232,7 @@ var video = new VideoFrame({
 									<div class="input-prepend input-append">
 										<button class="btn disabled">SMPTE:</button>
 										<input id="SMPTE-timeCode" type="text" placeholder="00:00:00:00" rel="tooltip" data-placement="top" data-original-title="Input: SMPTE time code for conversion." class="triggerTooltip">
+										<!-- #ifndef "RELEASE" in FEATURES -->
 										<!-- <div class="btn-group">
 											<button class="btn disabled">FPS:</button>
 											<span class="dropup">
@@ -248,6 +252,7 @@ var video = new VideoFrame({
 												</ul>
 											</span>
 										</div> -->
+										<!-- #endif -->
 										<div id="SMPTE-conversion" class="btn-group">
 											<button class="btn disabled">Convert to:</button>
 											<span class="dropup">
@@ -568,8 +573,9 @@ video.stopListen();
 		<a href="#" class="btn" data-dismiss="modal">OK</a>
 	</div>
 </div>
-<script type="text/javascript" src="assets/js/videoframe.app.js"></script>
+<script type="text/javascript" src="assets/js/videoframe.app.min.js"></script>
 <script type="text/javascript" src="assets/js/app.dependencies.js"></script>
+<!-- #ifndef "RELEASE" in FEATURES -->
 <!-- <script type="text/javascript" src="assets/js/VideoFrame.min.js"></script>
 <script type="text/javascript" src="assets/js/modernizr-2.6.2.js"></script>
 <script type="text/javascript" src="assets/js/jquery.min.js"></script>
@@ -577,6 +583,7 @@ video.stopListen();
 <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="assets/js/prettify.js"></script>
 <script type="text/javascript" src="assets/js/bs.js" async></script> -->
+<!-- #endif -->
 <script type="text/javascript">
 	var video = new VideoFrame({
 		id : 'videoPlayer_html5_api',
