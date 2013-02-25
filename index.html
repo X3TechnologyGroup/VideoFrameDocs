@@ -3,14 +3,6 @@
 <head>
 <title>VideoFrame: HTML5 Video SMTPE Time Code capturing and Frame Seeking API</title>
 <link rel="stylesheet" type="text/css" href="assets/css/app.dependencies.css" />
-<!-- #ifndef "RELEASE" in FEATURES -->
-<!-- <link rel="stylesheet" type="text/css" href="assets/css/video-js.min.css">
-<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
-<link rel="stylesheet" type="text/css" href="assets/css/prettify.css">
-<link rel="stylesheet" type="text/css" href="assets/css/videoFrame.css" />
-<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Maven+Pro:400,500,700"> -->
-<!-- #endif -->
 </head>
 <body>
 <div id="videoFrameCarousel" class="carousel slide">
@@ -103,8 +95,8 @@ var video = new VideoFrame({
 	<a class="carousel-control right" href="#videoFrameCarousel" data-slide="next"><i class="icon-chevron-right"></i></a>
 </div>
 <div id="download-buttons">
-	<a class="btn btn-large" href="https://raw.github.com/allensarkisyan/VideoFrame/master/VideoFrame.js" target="_blank"><i class="icon-download"></i> Download Development <sup>4.8kb</sup></a>
-	<a class="btn btn-large btn-primary" href="https://raw.github.com/allensarkisyan/VideoFrame/master/VideoFrame.min.js" target="_blank"><i class="icon-download"></i> Download Minified <sup>3.5kb</sup></a>
+	<a class="btn btn-large" href="https://raw.github.com/allensarkisyan/VideoFrame/master/VideoFrame.js" target="_blank"><i class="icon-download icon-large"></i> Download Development <sup>4.8kb</sup></a>
+	<a class="btn btn-large btn-primary" href="https://raw.github.com/allensarkisyan/VideoFrame/master/VideoFrame.min.js" target="_blank"><i class="icon-download icon-large"></i> Download Minified <sup>3.5kb</sup></a>
 </div>
 <a href="https://github.com/allensarkisyan/VideoFrame" target="_blank"><img style="position: absolute; top: 0; left: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png" alt="Fork VideoFrame on GitHub"></a>
 <div id="mainWrapper">
@@ -232,27 +224,6 @@ var video = new VideoFrame({
 									<div class="input-prepend input-append">
 										<button class="btn disabled">SMPTE:</button>
 										<input id="SMPTE-timeCode" type="text" placeholder="00:00:00:00" rel="tooltip" data-placement="top" data-original-title="Input: SMPTE time code for conversion." class="triggerTooltip">
-										<!-- #ifndef "RELEASE" in FEATURES -->
-										<!-- <div class="btn-group">
-											<button class="btn disabled">FPS:</button>
-											<span class="dropup">
-												<button id="conversionFrameRate" class="btn dropdown-toggle" role="button" data-toggle="dropdown" href="#">
-													<span id="currentConversionFrameRate" data-conversion-frame-rate="24">24</span>
-													<span class="caret"></span>
-												</button>
-												<ul id="conversionFrameRates" class="dropdown-menu" role="menu" aria-labelledby="conversionFrameRate">
-													<li><a class="updateConversionFrameRate" tabindex="-1" href="#" data-conversion-frame-rate="24 FPS">24</a></li>
-													<li><a class="updateConversionFrameRate" tabindex="-1" href="#" data-conversion-frame-rate="29.97 FPS">29.97</a></li>
-													<li><a class="updateConversionFrameRate" tabindex="-1" href="#" data-conversion-frame-rate="25 FPS">25</a></li>
-													<li><a class="updateConversionFrameRate" tabindex="-1" href="#" data-conversion-frame-rate="30 FPS">30</a></li>
-													<li><a class="updateConversionFrameRate" tabindex="-1" href="#" data-conversion-frame-rate="23.98 FPS">23.98</a></li>
-													<li><a class="updateConversionFrameRate" tabindex="-1" href="#" data-conversion-frame-rate="50 FPS">50</a></li>
-													<li><a class="updateConversionFrameRate" tabindex="-1" href="#" data-conversion-frame-rate="59.94 FPS">59.94</a></li>
-													<li><a class="updateConversionFrameRate" tabindex="-1" href="#" data-conversion-frame-rate="60 FPS">60</a></li>
-												</ul>
-											</span>
-										</div> -->
-										<!-- #endif -->
 										<div id="SMPTE-conversion" class="btn-group">
 											<button class="btn disabled">Convert to:</button>
 											<span class="dropup">
@@ -575,15 +546,6 @@ video.stopListen();
 </div>
 <script type="text/javascript" src="assets/js/videoFrame.app.min.js"></script>
 <script type="text/javascript" src="assets/js/app.dependencies.js"></script>
-<!-- #ifndef "RELEASE" in FEATURES -->
-<!-- <script type="text/javascript" src="assets/js/VideoFrame.min.js"></script>
-<script type="text/javascript" src="assets/js/modernizr-2.6.2.js"></script>
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
-<script type="text/javascript" src="assets/js/video.min.js"></script>
-<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="assets/js/prettify.js"></script>
-<script type="text/javascript" src="assets/js/bs.js" async></script> -->
-<!-- #endif -->
 <script type="text/javascript">
 	var video = new VideoFrame({
 		id : 'videoPlayer_html5_api',
